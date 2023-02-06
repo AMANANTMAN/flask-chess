@@ -1,38 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!DOCTYPE html>
 <html>
 <head>
-<!--  Including the chessboardjs files:-->
-    <script src="./js/chessboard-0.3.0.js"></script>
-    <link rel="stylesheet" href="css/chessboard-0.3.0.min.css">
-
-<!--  Including jQuery, another tool chessboardjs uses:-->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-  
-  </head>
- <h1>Home</home>
+<title>Chess</title>
+<link rel="stylesheet" href="css/chessboard-1.0.0.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="js/chessboard-1.0.0.min.js"></script>
+</head>
 <body>
-  <div id="myBoard" style="width: 400px"></div>
-  <label>Status:</label>
-  <div id="status"></div>
-  <label>FEN:</label>
-  <div id="fen"></div>
-  <label>PGN:</label>
-  <div id="pgn"></div>
-  </body>
-<script type="text/javascript" src='/static/js/json3.min.js'></script>
-<script type="text/javascript" src='/static/js/jquery.min.js'></script>
-<script type="text/javascript" src='/static/js/chessboard.js'></script>
-
-  
-  
-<!--
-  Now including our own custom JS
-  Note that we could write JS directly in between the script tags if you'd 
-  rather, but i didn't want to so i put it in a new file. 
--->
-  <script>
+<div id="myBoard" style="width: 400px"></div>
+<label>Status:</label>
+<div id="status"></div>
+<label>FEN:</label>
+<div id="fen"></div>
+<label>PGN:</label>
+<div id="pgn"></div>
+<script>
 var board = null
 var game = new Chess()
 var $status = $('#status')
@@ -41,12 +26,13 @@ var $pgn = $('#pgn')
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
-    if (game.game_over()) return false
+  if (game.game_over()) return false
 
   // only pick up pieces for the side to move
-    if ((game.turn() === 'w' && piece.search(/^b/) !== -1) || (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
-        return false
-    }
+  if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+    return false
+  }
 }
 
 function onDrop (source, target) {
@@ -112,8 +98,8 @@ var config = {
 board = Chessboard('myBoard', config)
 
 updateStatus()
-$(document).ready(updateStatus);
-  </script>
+</script>
+</body>
 </html>
 
 {% endblock %}
